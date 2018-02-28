@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	maxNonce = math.MaxInt64
+  maxNonce = math.MaxInt64
 )
 
 const targetBits = 1
@@ -46,24 +46,24 @@ func (pow *ProofOfWork) Run() (int, []byte) {
     logf("hash %s", hash)
     hashInt.SetBytes(hash[:])
     if hashInt.Cmp(pow.target) == -1 {
-			break
-		} else {
-			nonce++
+	    break
+    } else {
+	    nonce++
 		}
   }
   return nonce, hash[:]
 }
 
 func (pow *ProofOfWork) Validate() bool {
-	var hashInt big.Int
+  var hashInt big.Int
 
-	data := pow.prepareData(pow.block.Nonce)
-	hash := sha256.Sum256(data)
-	hashInt.SetBytes(hash[:])
+  data := pow.prepareData(pow.block.Nonce)
+  hash := sha256.Sum256(data)
+  hashInt.SetBytes(hash[:])
 
-	isValid := hashInt.Cmp(pow.target) == -1
+  isValid := hashInt.Cmp(pow.target) == -1
 
-	return isValid
+  return isValid
 }
 
 func NewProofOfWork(b *Block) *ProofOfWork {

@@ -7,7 +7,7 @@ import (
 )
 
 func logf(f string, v ...interface{}) {
-	log.Printf(f, v...)
+  log.Printf(f, v...)
 }
 
 func main() {
