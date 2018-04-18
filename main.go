@@ -1,9 +1,7 @@
 package main
 
 import (
-  "fmt"
   "log"
-  "strconv"
 )
 
 func logf(f string, v ...interface{}) {
@@ -13,16 +11,8 @@ func logf(f string, v ...interface{}) {
 func main() {
 
   bc := NewBlockchain()
-  bc.AddBlock("Send 1 BTC to Ivan")
-  bc.AddBlock("Send 2 more BTC to Ivan")
+	defer bc.db.Close()
 
-  for _, block := range bc.blocks {
-    fmt.Printf("Prev. hash: %x\n", block.PrevBlockHash)
-    fmt.Printf("Data: %s\n", block.Data)
-    fmt.Printf("Hash: %x\n", block.Hash)
-    pow := NewProofOfWork(block)
-    logf("PoW: %s", strconv.FormatBool(pow.Validate()))
-    fmt.Println()
-  }
-
+	cli := CLI{bc}
+	cli.Run()
 }
